@@ -3,6 +3,14 @@ use \clases\items\{Academia, Baile};
 use \clases\people\{Profesor, Alumno};
 use \exceptions\NotProfesorException;
 
+
+function global_exception_handler(Throwable $exception) {
+    echo "Ocorreu unha exception ou error: " , $exception->getMessage(), "\n";
+  }
+
+  set_exception_handler('global_exception_handler');
+
+
 // require_once "Persoa.php";
 // require_once 'Profesor.php';
 // require_once 'Alumno.php';
@@ -91,14 +99,16 @@ echo "</pre>";
 
 
 
-$profe1->setDataNacemento(\DateTimeImmutable::createFromFormat("Y-m-d", "2000-01-02"));
+$profe1->setDataNacemento(\DateTimeImmutable::createFromFormat("Y-m-d", "2001-01-02"));
 $profe1->verInformacion();
 
 $profe2 = new Profesor("Profe2", "ABC DEF", "600123123", "99999999F");
 $profe2->setDataNacemento(\DateTimeImmutable::createFromFormat("Y-m-d", "2000-01-01"));
 $profe2->verInformacion();
 
-try {
+
+
+//try {
    
    $resultado = $profe2->comparar($profe1);
    echo "<p>El resultado de comparar profe2 y profe1 es $resultado: </p>";
@@ -106,11 +116,11 @@ try {
    $resultado = $profe2->comparar($alumno1);
    echo "<p>El resultado de comparar profe2 y alumno1 es $resultado: </p>";
 
-}
-catch(NotProfesorException $e){
-    error_log("Ha ocurrido una exception: " . $e->getMessage());
-    echo ("No se ha podido comparar los profes. " 
- .$e->getMessage());
-}
+//}
+// catch(NotProfesorException $e){
+//     error_log("Ha ocurrido una exception: " . $e->getMessage());
+//     echo ("No se ha podido comparar los profes. " 
+//  .$e->getMessage());
+// }
 
 
